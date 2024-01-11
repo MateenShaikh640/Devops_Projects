@@ -1,70 +1,26 @@
-// @Library('my-shared-library') _
-
-// pipeline{
-
-//     agent any
-
-//     environment {
-//         JENKINS_FILE_PATH = 'Java_app/Jenkinsfile'
-//     }
-
-//     stages{
-        
-//         stage("Load Jenkinsfile") {
-//             steps {
-//                 script {
-//                     // Load and execute the Jenkinsfile using the environment variable
-//                     load env.JENKINS_FILE_PATH
-//                 }
-//             }
-//         }
-
-//         stage("Git CheckOut") {
-
-//             steps{
-
-//                 script{
-
-//                      gitCheckout(
-//                         branch: "main",
-//                         url: "https://github.com/MateenShaikh640/Devops_Projects.git"
-                        
-//                      )
-//                      load env.JENKINS_FILE_PATH
-//                 }
-//             }
-//         }
-//     }
-// }
 @Library('my-shared-library') _
 
-pipeline {
+pipeline{
+
     agent any
+    stages{
 
-    environment {
-        JENKINS_FILE_PATH = 'Java_app/Jenkinsfile'
-    }
-
-    stages {
         stage("Git CheckOut") {
-            steps {
-                script {
-                    gitCheckout(
+
+            steps{
+
+                script{
+
+                     gitCheckout(
                         branch: "main",
                         url: "https://github.com/MateenShaikh640/Devops_Projects.git"
-                    )
-                }
-            }
-        }
+                        
+                     )
 
-        stage("Load Jenkinsfile") {
-            steps {
-                script {
-                    // Load and execute the Jenkinsfile using the environment variable
-                    load env.JENKINS_FILE_PATH
                 }
             }
         }
     }
 }
+
 
