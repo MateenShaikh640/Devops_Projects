@@ -9,6 +9,15 @@ pipeline{
     }
 
     stages{
+        
+        stage("Load Jenkinsfile") {
+            steps {
+                script {
+                    // Load and execute the Jenkinsfile using the environment variable
+                    load env.JENKINS_FILE_PATH
+                }
+            }
+        }
 
         stage("Git CheckOut") {
 
@@ -19,7 +28,9 @@ pipeline{
                      gitCheckout(
                         branch: "main",
                         url: "https://github.com/MateenShaikh640/Devops_Projects.git"
+                        
                      )
+                     load env.JENKINS_FILE_PATH
                 }
             }
         }
