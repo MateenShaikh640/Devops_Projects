@@ -4,6 +4,10 @@ pipeline{
 
     agent any
 
+    environment {
+        JENKINS_FILE_PATH = 'Java_app/Jenkinsfile'
+    }
+
     stages{
 
         stage("Git CheckOut") {
