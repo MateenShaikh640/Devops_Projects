@@ -20,7 +20,7 @@ pipeline{
                 }
             }
         }
-         stage("Git CheckOut") {
+         stage("maven test") {
 
             steps{
 
