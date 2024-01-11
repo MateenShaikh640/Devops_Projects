@@ -7,9 +7,13 @@ pipeline{
         stage("Git CheckOut") {
 
             steps{
-                
+
                 script{
-                     git branch: 'main', url: 'https://github.com/MateenShaikh640/Devops_Projects.git'
+
+                     gitCheckout(
+                        branch: "main",
+                        url: "https://github.com/MateenShaikh640/Devops_Projects.git"
+                     )
                 }
             }
         }
