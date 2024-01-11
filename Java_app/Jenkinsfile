@@ -1,7 +1,13 @@
-pipline{
+pipeline{
+
+    agent any
+
     stages{
-        stage("Git CheckOut"){
+
+        stage("Git CheckOut") {
+
             steps{
+                
                 script{
                      git branch: 'main', url: 'https://github.com/MateenShaikh640/Devops_Projects.git'
                 }
