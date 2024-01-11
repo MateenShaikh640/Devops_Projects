@@ -20,6 +20,16 @@ pipeline{
                 }
             }
         }
+         stage("Git CheckOut") {
+
+            steps{
+
+                script{
+
+                       mvnTest()
+                }
+            }
+        }
     }
 }
 
