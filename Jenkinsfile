@@ -45,12 +45,22 @@ pipeline{
             }
         }
                 stage("static code analysis: sonarqube") {
-             when {expression { params.action == 'create'} }
-            steps{
+                when {expression { params.action == 'create'} }
+                steps{
 
                 script{
                       def SonarQubecredentialsId = 'sonar-token'
                       staticCodeAnalysis(SonarQubecredentialsId)
+                }
+            }
+        }
+            stage("Quality Gate: sonarqube") {
+                when {expression { params.action == 'create'} }
+                steps{
+
+                script{
+                      def SonarQubecredentialsId = 'sonar-token'
+                      QualityGateStatus(SonarQubecredentialsId)
                 }
             }
         }
