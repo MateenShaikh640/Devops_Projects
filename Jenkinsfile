@@ -30,6 +30,16 @@ pipeline{
                 }
             }
         }
+        stage("integration test") {
+
+            steps{
+
+                script{
+
+                      mvnintegationTest()
+                }
+            }
+        }
     }
 }
 
