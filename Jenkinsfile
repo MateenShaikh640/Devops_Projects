@@ -88,8 +88,9 @@ pipeline{
     }
         post {
             failure {
-                stage('Clean Workspace') {
-                      steps {
+                 steps {
+                    script {
+                        echo "Cleaning workspace due to failure..."
                         cleanWs()
                 }
             }
