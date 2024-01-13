@@ -85,9 +85,10 @@ pipeline{
                 }
             }
         }
-             post {
-                failure {
-                   stage('Clean Workspace') {
+    }
+        post {
+            failure {
+                stage('Clean Workspace') {
                       steps {
                         cleanWs()
                 }
@@ -95,7 +96,7 @@ pipeline{
         }
     }
 
-    }
+ 
 }
 
 
