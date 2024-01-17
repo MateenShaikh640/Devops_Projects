@@ -115,7 +115,7 @@ pipeline {
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose Create/Destroy')
         string(name: 'ImageName', description: "Name of docker build", defaultValue: 'javapp')
         string(name: 'ImageTag', description: "Tag of docker build", defaultValue: 'v1')
-        string(name: 'Appname', description: "Name of the Application", defaultValue: 'springboot')
+        string(name: 'DockerHubUser', description: "Name of DockerHubUser", defaultValue: 'mateenshaikh00')
     }
     stages {
         stage("Git CheckOut") {
