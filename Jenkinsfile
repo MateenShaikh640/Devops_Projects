@@ -27,64 +27,64 @@ pipeline{
                 }
             }
          }
-        //  stage("maven test") {
-        //           when {expression { params.action == 'create'} }
-        //     steps{
+         stage("maven test") {
+                  when {expression { params.action == 'create'} }
+            steps{
 
-        //         script{
+                script{
 
-        //                mvnTest()
-        //         }
-        //     }
-        // }
-        // stage("integration test") {
-        //      when {expression { params.action == 'create'} }
-        //     steps{
+                       mvnTest()
+                }
+            }
+        }
+        stage("integration test") {
+             when {expression { params.action == 'create'} }
+            steps{
 
-        //         script{
+                script{
 
-        //               mvnintegationTest()
-        //         }
-        //     }
-        // }
-        //         stage("static code analysis: sonarqube") {
-        //         when {expression { params.action == 'create'} }
-        //         steps{
+                      mvnintegationTest()
+                }
+            }
+        }
+                stage("static code analysis: sonarqube") {
+                when {expression { params.action == 'create'} }
+                steps{
 
-        //         script{
-        //               def SonarQubecredentialsId = 'sonar-token'
-        //               staticCodeAnalysis(SonarQubecredentialsId)
-        //         }
-        //     }
-        // }
-        //     stage("Quality Gate: sonarqube") {
-        //         when {expression { params.action == 'create'} }
-        //         steps{
+                script{
+                      def SonarQubecredentialsId = 'sonar-token'
+                      staticCodeAnalysis(SonarQubecredentialsId)
+                }
+            }
+        }
+            stage("Quality Gate: sonarqube") {
+                when {expression { params.action == 'create'} }
+                steps{
 
-        //         script{
-        //               def SonarQubecredentialsId = 'sonar-token'
-        //               QualityGateStatus(SonarQubecredentialsId)
-        //         }
-        //     }
-        // }
-        //     stage("maven Build: Maven") {
-        //         when {expression { params.action == 'create'} }
-        //         steps{
+                script{
+                      def SonarQubecredentialsId = 'sonar-token'
+                      QualityGateStatus(SonarQubecredentialsId)
+                }
+            }
+        }
+            stage("maven Build: Maven") {
+                when {expression { params.action == 'create'} }
+                steps{
 
-        //         script{
-        //              mvnBuild()
-        //         }
-        //     }
-        // }
-        //     stage('Docker image build') {
-        //         when {expression { params.action == 'create'} }
-        //         steps{
+                script{
+                     mvnBuild()
+                }
+            }
+        }
+            stage('Docker image build') {
+                when {expression { params.action == 'create'} }
+                steps{
 
-        //         script{
-        //              dockerBuild("${params.ImageName}","${params.ImageTag}","${params.Appname}")
-        //         }
-        //     }
-        // }
+                script{
+                     dockerBuild("${params.ImageName}","${params.ImageTag}","${params.Appname}")
+                }
+            }
+        }
     }
     //if you execute post stage when only when job get faile
     //     post {
