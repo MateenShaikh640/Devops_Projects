@@ -86,15 +86,22 @@ pipeline{
         //     }
         // }
     }
-        post {
-            failure {
-                 steps {
-                    script {
-                        echo "Cleaning workspace due to failure..."
-                        cleanWs()
-                }
-            }
-        }
+    //if you execute post stage when only when job get faile
+    //     post {
+    //         failure {
+    //              steps {
+    //                 script {
+    //                     echo "Cleaning workspace due to failure..."
+    //                     cleanWs()
+    //             }
+    //         }
+    //     }
+    // }
+            post {
+                  always {
+        echo "This will run always, regardless of build result"
+        cleanWs()
+    }
     }
 
  
