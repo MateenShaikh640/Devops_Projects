@@ -7,7 +7,7 @@ pipeline {
         // string(name: 'ImageName', description: "Name of docker build", defaultValue: 'javapp')
         // string(name: 'ImageTag', description: "Tag of docker build", defaultValue: 'v1')
         // string(name: 'DockerHubUser', description: "Name of DockerHubUser", defaultValue: 'mateenshaikh00')
-        string(name: 'aws_account_id', description: "AWS account id", defaultValue: '3169-5812-4144')
+        string(name: 'aws_account_id', description: "AWS account id", defaultValue: '316958124144')
         string(name: 'region', description: "AWS account region", defaultValue: 'ap-south-1')
         string(name: 'reponame', description: "ECR repo name ", defaultValue: 'mateenshaikh01')
        
