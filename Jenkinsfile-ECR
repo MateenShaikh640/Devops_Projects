@@ -26,48 +26,48 @@ pipeline {
                 }
             }
         }
-        // stage("maven test") {
-        //     when { expression { params.action == 'create' } }
-        //     steps {
-        //         timeout(time: 2, unit: 'MINUTES') {
-        //             script {
-        //                 mvnTest()
-        //             }
-        //         }
-        //     }
-        // }
-        // stage("integration test") {
-        //     when { expression { params.action == 'create' } }
-        //     steps {
-        //         timeout(time: 2, unit: 'MINUTES') {
-        //             script {
-        //                 mvnintegationTest()
-        //             }
-        //         }
-        //     }
-        // }
-        // stage("static code analysis: sonarqube") {
-        //     when { expression { params.action == 'create' } }
-        //     steps {
-        //         timeout(time: 2, unit: 'MINUTES') {
-        //             script {
-        //                 def SonarQubecredentialsId = 'sonar-token'
-        //                 staticCodeAnalysis(SonarQubecredentialsId)
-        //             }
-        //         }
-        //     }
-        // }
-        // stage("Quality Gate: sonarqube") {
-        //     when { expression { params.action == 'create' } }
-        //     steps {
-        //         timeout(time: 2, unit: 'MINUTES') {
-        //             script {
-        //                 def SonarQubecredentialsId = 'sonar-token'
-        //                 QualityGateStatus(SonarQubecredentialsId)
-        //             }
-        //         }
-        //     }
-        // }
+        stage("maven test") {
+            when { expression { params.action == 'create' } }
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        mvnTest()
+                    }
+                }
+            }
+        }
+        stage("integration test") {
+            when { expression { params.action == 'create' } }
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        mvnintegationTest()
+                    }
+                }
+            }
+        }
+        stage("static code analysis: sonarqube") {
+            when { expression { params.action == 'create' } }
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        def SonarQubecredentialsId = 'sonar-token'
+                        staticCodeAnalysis(SonarQubecredentialsId)
+                    }
+                }
+            }
+        }
+        stage("Quality Gate: sonarqube") {
+            when { expression { params.action == 'create' } }
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        def SonarQubecredentialsId = 'sonar-token'
+                        QualityGateStatus(SonarQubecredentialsId)
+                    }
+                }
+            }
+        }
         stage("maven Build: Maven") {
             when { expression { params.action == 'create' } }
             steps {
@@ -86,6 +86,36 @@ pipeline {
                         dockerBuild("${params.aws_account_id}", "${params.region}", "${params.reponame}")
                     }
                 }
+            }
+        }
+             stage('Docker image scann:triyva') {
+            when { expression { params.action == 'create' } }
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        dockerimageScan("${params.aws_account_id}", "${params.region}", "${params.reponame}")
+                    }
+                }
+            }
+        }
+         stage('Docker image push:ECR') {
+            when { expression { params.action == 'create' } }
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        dockerimagePush("${params.aws_account_id}", "${params.region}", "${params.reponame}")
+                    }
+                }
+            }
+        }
+                 stage('Docker image cleanup:ECR') {
+            when { expression { params.action == 'create' } }
+            steps {
+
+                    script {
+                        dockerimageCleanup("${params.aws_account_id}", "${params.region}", "${params.reponame}")
+                    }
+
             }
         }
     }
