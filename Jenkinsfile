@@ -193,6 +193,16 @@ pipeline {
                 }
             }
         }
+                stage('Docker image scann:triyva') {
+            when { expression { params.action == 'create' } }
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        dockerimageScan("${params.ImageName}", "${params.ImageTag}", "${params.DockerHubUser}")
+                    }
+                }
+            }
+        }
     }
     // post {
     //     always {
