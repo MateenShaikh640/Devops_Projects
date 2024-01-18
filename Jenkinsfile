@@ -203,6 +203,16 @@ pipeline {
                 }
             }
         }
+                        stage('Docker image push:DockerHub') {
+            when { expression { params.action == 'create' } }
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        dockerimagePush("${params.ImageName}", "${params.ImageTag}", "${params.DockerHubUser}")
+                    }
+                }
+            }
+        }
     }
     // post {
     //     always {
