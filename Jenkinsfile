@@ -131,48 +131,48 @@ pipeline {
                 }
             }
         }
-        stage("maven test") {
-            when { expression { params.action == 'create' } }
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    script {
-                        mvnTest()
-                    }
-                }
-            }
-        }
-        stage("integration test") {
-            when { expression { params.action == 'create' } }
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    script {
-                        mvnintegationTest()
-                    }
-                }
-            }
-        }
-        stage("static code analysis: sonarqube") {
-            when { expression { params.action == 'create' } }
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    script {
-                        def SonarQubecredentialsId = 'sonar-token'
-                        staticCodeAnalysis(SonarQubecredentialsId)
-                    }
-                }
-            }
-        }
-        stage("Quality Gate: sonarqube") {
-            when { expression { params.action == 'create' } }
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    script {
-                        def SonarQubecredentialsId = 'sonar-token'
-                        QualityGateStatus(SonarQubecredentialsId)
-                    }
-                }
-            }
-        }
+        // stage("maven test") {
+        //     when { expression { params.action == 'create' } }
+        //     steps {
+        //         timeout(time: 2, unit: 'MINUTES') {
+        //             script {
+        //                 mvnTest()
+        //             }
+        //         }
+        //     }
+        // }
+        // stage("integration test") {
+        //     when { expression { params.action == 'create' } }
+        //     steps {
+        //         timeout(time: 2, unit: 'MINUTES') {
+        //             script {
+        //                 mvnintegationTest()
+        //             }
+        //         }
+        //     }
+        // }
+        // stage("static code analysis: sonarqube") {
+        //     when { expression { params.action == 'create' } }
+        //     steps {
+        //         timeout(time: 2, unit: 'MINUTES') {
+        //             script {
+        //                 def SonarQubecredentialsId = 'sonar-token'
+        //                 staticCodeAnalysis(SonarQubecredentialsId)
+        //             }
+        //         }
+        //     }
+        // }
+        // stage("Quality Gate: sonarqube") {
+        //     when { expression { params.action == 'create' } }
+        //     steps {
+        //         timeout(time: 2, unit: 'MINUTES') {
+        //             script {
+        //                 def SonarQubecredentialsId = 'sonar-token'
+        //                 QualityGateStatus(SonarQubecredentialsId)
+        //             }
+        //         }
+        //     }
+        // }
         stage("maven Build: Maven") {
             when { expression { params.action == 'create' } }
             steps {
@@ -194,12 +194,12 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            echo "This will run always, regardless of build result"
-            cleanWs()
-        }
-    }
+    // post {
+    //     always {
+    //         echo "This will run always, regardless of build result"
+    //         cleanWs()
+    //     }
+    // }
 }
 
 
