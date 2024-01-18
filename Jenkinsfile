@@ -188,7 +188,7 @@ pipeline {
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
                     script {
-                        dockerBuild("${params.ImageName}", "${params.ImageTag}", "${params.Appname}")
+                        dockerBuild("${params.ImageName}", "${params.ImageTag}", "${params.DockerHubUser}")
                     }
                 }
             }
