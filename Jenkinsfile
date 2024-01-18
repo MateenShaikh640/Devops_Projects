@@ -193,7 +193,7 @@ pipeline {
                 }
             }
         }
-                stage('Docker image scann:triyva') {
+         stage('Docker image scann:triyva') {
             when { expression { params.action == 'create' } }
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
@@ -203,12 +203,22 @@ pipeline {
                 }
             }
         }
-                        stage('Docker image push:DockerHub') {
+         stage('Docker image push:DockerHub') {
             when { expression { params.action == 'create' } }
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
                     script {
                         dockerimagePush("${params.ImageName}", "${params.ImageTag}", "${params.DockerHubUser}")
+                    }
+                }
+            }
+        }
+                 stage('Docker image cleanup:DockerHub') {
+            when { expression { params.action == 'create' } }
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        dockerimageCleanup("${params.ImageName}", "${params.ImageTag}", "${params.DockerHubUser}")
                     }
                 }
             }
