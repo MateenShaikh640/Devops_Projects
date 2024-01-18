@@ -216,11 +216,11 @@ pipeline {
                  stage('Docker image cleanup:DockerHub') {
             when { expression { params.action == 'create' } }
             steps {
-                timeout(time: 2, unit: 'MINUTES') {
+                //timeout(time: 2, unit: 'MINUTES') {
                     script {
                         dockerimageCleanup("${params.ImageName}", "${params.ImageTag}", "${params.DockerHubUser}")
                     }
-                }
+              //  }
             }
         }
     }
