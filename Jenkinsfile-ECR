@@ -141,7 +141,7 @@ pipeline {
                 stage('Connect to EKS custer:'){
             steps{
                 script{
-                        sh """"
+                        sh """
                             aws configure set aws_access_key_id $ACCESS_KEY
                             aws configure set aws_secret_access_key $SECRET_KEY
                             aws configure set region ${params.region}
