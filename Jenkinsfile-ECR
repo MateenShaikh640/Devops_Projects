@@ -12,6 +12,12 @@ pipeline {
         string(name: 'reponame', description: "ECR repo name ", defaultValue: 'mateenshaikh01')
        
     }
+
+    environment{
+        access_key = credentials('Access key ID')
+        secret_key = credentials('Secret access key')
+    }
+
     stages {
         stage("Git CheckOut") {
             when { expression { params.action == 'create' } }
